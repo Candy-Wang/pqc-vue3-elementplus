@@ -23,7 +23,7 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
     // 使用路径别名时想要省略的后缀名
-    extensions: ['.js', '.json', '.ts', '.vue'],
+    extensions: ['.js', '.ts'],
   },
   server: {
     proxy: {
