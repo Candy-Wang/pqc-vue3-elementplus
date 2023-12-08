@@ -16,14 +16,23 @@
             >
             </el-tab-pane>
         </el-tabs>
-        <account-mode-form v-if="activeLoginMode === 'accountMode'" />
+        <account-mode-form
+            v-if="activeLoginMode === 'accountMode'"
+            @login="onAccountLogin"
+        />
         <el-divider v-if="companyName" class="login-info-section__footer">{{ companyName }}</el-divider>
     </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import type { FormInstance } from 'element-plus'
 import AccountModeForm from './AccountModeForm.vue';
+
+interface LoginMode {
+    name: string,
+    type: string,
+}
 
 const props = defineProps({
     applicationName: {
@@ -32,7 +41,7 @@ const props = defineProps({
     },
 
     loginMode: {
-        type: Array,
+        type: Array<LoginMode>,
         default: () => [{
             name: '账号登录',
             type: 'accountMode',
@@ -46,6 +55,11 @@ const props = defineProps({
 });
 const activeLoginMode = ref(props.loginMode[0].type);
 console.log(props.loginMode[0].type)
+
+function onAccountLogin(formEl: FormInstance, formData: any) {
+    if (!formEl) return;
+    console.log('formData', formData)
+}
 </script>
 
 <style scoped lang="scss">
